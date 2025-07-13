@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Headshot Generator - Professional Headshots for LinkedIn</title>
+  <meta name="description" content="Create high-quality AI-generated headshots with clean backgrounds. Perfect for LinkedIn, resumes, and online profiles.">
+  <meta name="keywords" content="AI headshot generator, professional headshot maker, LinkedIn headshot AI, clean headshot photo, office background portrait">
+  <link rel="canonical" href="https://zentool.xyz/headshot" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="AI Headshot Generator">
+  <meta property="og:description" content="Generate clean, sharp headshots online with AI – white, office or blurred backgrounds.">
+  <meta property="og:image" content="https://zentool.xyz/og-preview.png">
+  <meta property="og:url" content="https://zentool.xyz/headshot">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Headshot Generator – Create LinkedIn Photos Online">
+  <meta name="twitter:description" content="Upload a photo and generate a clean professional headshot in seconds.">
+  <meta name="twitter:image" content="https://zentool.xyz/og-preview.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="/static/manifest.json">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800">
+     <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <img src="/static/logo.png" class="w-10 h-10 rounded-full" alt="Logo">
+        <span class="text-xl font-bold text-blue-700">Zentool</span>
+      </div>
+      <nav class="space-x-4 text-sm md:text-base font-medium text-gray-600">
+        <a href="/" class="hover:text-blue-600 transition">Background Remover</a>
+        <a href="/headshot" class="hover:text-blue-600 transition">AI Headshot</a>
+        <a href="/passport" class="hover:text-blue-600 transition">Passport Photo</a>
+        <a href="/product" class="hover:text-blue-600 transition">Product Enhancer</a>
+        <a href="/pfp" class="hover:text-blue-600 transition">PFP Generator</a>
+        <select id="lang-select" class="border text-sm rounded px-2 py-1 ml-4">
+          <option value="en">EN</option>
+          <option value="fr">FR</option>
+          <option value="es">ES</option>
+          <option value="ha">HA</option>
+        </select>
+      </nav>
+    </div>
+  </header>
+  <div class="max-w-lg mx-auto mt-10 bg-white rounded-xl shadow-lg p-6 space-y-6">
+
+    <!-- Language Selector -->
+    <div class="flex justify-end">
+      <select id="lang-select" class="text-sm border px-2 py-1 rounded">
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+        <option value="es">ES</option>
+        <option value="ha">HA</option>
+      </select>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-2xl font-bold text-center" data-lang="heading">👤 AI Headshot Generator</h1>
+
+    <!-- Upload Form -->
+    <form action="/headshot" method="post" enctype="multipart/form-data" class="space-y-4">
+      <label class="block text-sm font-medium" data-lang="choosePhoto">Choose Photo (or use camera)</label>
+      <input type="file" name="file" accept="image/*" capture="user" required class="block w-full" />
+
+      <label for="bg" class="block text-sm font-medium" data-lang="bgOption">Choose Background</label>
+      <select name="bg" id="bg" class="w-full p-2 border rounded">
+        <option value="white" data-lang="optWhite">White</option>
+        <option value="blur" data-lang="optBlur">Blur</option>
+        <option value="office" data-lang="optOffice">Office</option>
+        <option value="gradient" data-lang="optGradient">Gradient</option>
+      </select>
+
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded">
+        <span data-lang="generateBtn">Generate Headshot</span>
+      </button>
+    </form>
+
+    {% if result_url %}
+    <div class="text-center mt-6 border-t pt-4">
+      <h2 class="text-lg font-semibold mb-2" data-lang="preview">✅ Preview</h2>
+      <img src="{{ result_url }}" class="mx-auto rounded-lg max-h-[500px]" alt="Headshot Preview">
+      <a href="{{ result_url }}" download class="mt-3 inline-block bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded" data-lang="downloadBtn">Download</a>
+    </div>
+    {% elif error %}
+    <p class="text-red-600 text-center">{{ error }}</p>
+    {% endif %}
+
+    <div class="text-center pt-4 border-t text-sm text-gray-400">
+      <a href="/" class="underline" data-lang="backHome">← Back to Background Remover</a>
+    </div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: "AI Headshot Generator", heading: "AI Headshot Generator", choosePhoto: "Choose Photo (or use camera)",
+        bgOption: "Choose Background", optWhite: "White", optBlur: "Blur", optOffice: "Office", optGradient: "Gradient",
+        generateBtn: "Generate Headshot", preview: "✅ Preview", downloadBtn: "Download", backHome: "← Back to Background Remover"
+      },
+      fr: {
+        title: "Générateur de Portrait IA", heading: "Générateur de Portrait IA", choosePhoto: "Choisissez une photo (ou utilisez la caméra)",
+        bgOption: "Choisir un arrière-plan", optWhite: "Blanc", optBlur: "Flou", optOffice: "Bureau", optGradient: "Dégradé",
+        generateBtn: "Générer un Portrait", preview: "✅ Aperçu", downloadBtn: "Télécharger", backHome: "← Retour à l’outil de suppression"
+      },
+      es: {
+        title: "Generador de Fotos IA", heading: "Generador de Fotos IA", choosePhoto: "Seleccionar foto (o usar cámara)",
+        bgOption: "Elegir fondo", optWhite: "Blanco", optBlur: "Desenfoque", optOffice: "Oficina", optGradient: "Gradiente",
+        generateBtn: "Generar Foto", preview: "✅ Vista previa", downloadBtn: "Descargar", backHome: "← Volver al eliminador de fondo"
+      },
+      ha: {
+        title: "Mai Haɗa Hoton Kai AI", heading: "Mai Haɗa Hoton Kai AI", choosePhoto: "Zaɓi hoto (ko amfani da kyamara)",
+        bgOption: "Zaɓi bango", optWhite: "Fari", optBlur: "Bango mai blur", optOffice: "Ofishin aiki", optGradient: "Bango mai launi",
+        generateBtn: "Fitar da Hoto", preview: "✅ Dubawa", downloadBtn: "Saukar da Hoto", backHome: "← Komawa Cire Bango"
+      }
+    };
+
+    document.getElementById("lang-select").addEventListener("change", (e) => {
+      const lang = e.target.value;
+      document.querySelectorAll("[data-lang]").forEach(el => {
+        const key = el.getAttribute("data-lang");
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+      document.title = translations[lang].title;
+    });
+
+    // Set default on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("lang-select").dispatchEvent(new Event("change"));
+    });
+
+    // PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js');
+    }
+  </script>
+</body>
+</html>

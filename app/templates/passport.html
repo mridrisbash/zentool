@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Passport Photo Generator - Resize & Crop to Country Specs</title>
+  <meta name="description" content="Create passport and ID photos for the US, UK, Nigeria and more. Auto-crop and resize images to official dimensions. Choose white or light blue backgrounds.">
+  <meta name="keywords" content="passport photo generator, ID photo maker, UK passport photo online, 2x2 inch passport photo, online ID photo crop">
+  <link rel="canonical" href="https://zentool.xyz/passport" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Passport & ID Photo Maker (2x2, UK, Nigeria)">
+  <meta property="og:description" content="Generate official passport and ID photos online – resize, crop, and download in seconds.">
+  <meta property="og:image" content="https://zentool.xyz/og-preview.png">
+  <meta property="og:url" content="https://zentool.xyz/passport">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Online Passport/ID Photo Generator">
+  <meta name="twitter:description" content="Auto-crop and create passport photos for US, UK, Nigeria and more.">
+  <meta name="twitter:image" content="https://zentool.xyz/og-preview.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 min-h-screen">
+
+  <header class="bg-white shadow p-4 flex justify-between items-center">
+    <a href="/" class="text-xl font-bold text-blue-600">Zentool</a>
+    <nav class="space-x-4 text-sm">
+     <a href="/" class="hover:text-blue-600 transition">Background Remover</a>
+        <a href="/headshot" class="hover:text-blue-600 transition">AI Headshot</a>
+        <a href="/passport" class="hover:text-blue-600 transition">Passport Photo</a>
+        <a href="/product" class="hover:text-blue-600 transition">Product Enhancer</a>
+        <a href="#" class="hover:text-blue-600 transition">PFP Generator</a>
+    </nav>
+  </header>
+
+  <main class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-lg shadow space-y-6">
+    <h1 class="text-2xl font-bold text-center">🪪 Passport/ID Photo Generator</h1>
+
+    {% if error %}
+      <p class="text-red-500 text-sm text-center">{{ error }}</p>
+    {% endif %}
+
+    <form action="/passport" method="post" enctype="multipart/form-data" class="space-y-4">
+      <input type="file" name="file" accept="image/*" required class="block w-full border p-2 rounded">
+
+      <label class="block font-medium">Select Country</label>
+      <select name="country" class="w-full border p-2 rounded">
+        <option value="US">United States (2x2 inch)</option>
+        <option value="UK">United Kingdom (35x45mm)</option>
+        <option value="Nigeria">Nigeria (35x45mm)</option>
+      </select>
+
+      <label class="block font-medium">Background Color</label>
+      <select name="bg_color" class="w-full border p-2 rounded">
+        <option value="white">White</option>
+        <option value="blue">Light Blue</option>
+      </select>
+
+      <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Generate Photo</button>
+    </form>
+
+    {% if result_url %}
+      <div class="text-center border-t pt-4">
+        <p class="font-medium">✅ Passport Photo Ready</p>
+        <img src="{{ result_url }}" alt="Result" class="mx-auto max-h-80 my-4 border">
+        <a href="{{ result_url }}" download class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Download</a>
+      </div>
+    {% endif %}
+  </main>
+
+</body>
+</html>
