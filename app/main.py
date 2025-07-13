@@ -7,6 +7,7 @@ from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
 import io, os
 import cv2
 import numpy as np
+from fastapi.responses import PlainTextResponse
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -41,6 +42,10 @@ async def remove_bg(request: Request, file: UploadFile = File(...)):
 async def sitemap():
     return FileResponse("static/sitemap.xml", media_type="application/xml")
 
+@app.get("/ads.txt", response_class=PlainTextResponse)
+async def ads_txt():
+    with open("ads.txt", "r") as f:
+        content = f.read()
 # ========= ROUTE: Product Photo Enhancer =========
 
 @app.get("/product", response_class=HTMLResponse)
@@ -291,6 +296,7 @@ async def generate_headshot(
             "error": f"Something went wrong: {e}"
         })
 
+    return content
 # ========= STATIC FILES =========
 
 app.mount("/output", StaticFiles(directory="output"), name="output")
