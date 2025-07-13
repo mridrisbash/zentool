@@ -136,6 +136,32 @@
       langSelect.value = initialLang;
       applyTranslations(initialLang);
     });
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("lang-select").dispatchEvent(new Event("change"));
+
+      const dropArea = document.getElementById("drop-area");
+      const fileInput = document.getElementById("file-input");
+
+      ["dragenter", "dragover"].forEach(evt =>
+        dropArea.addEventListener(evt, e => {
+          e.preventDefault();
+          dropArea.classList.add("bg-blue-50");
+        })
+      );
+
+      ["dragleave", "drop"].forEach(evt =>
+        dropArea.addEventListener(evt, e => {
+          e.preventDefault();
+          dropArea.classList.remove("bg-blue-50");
+        })
+      );
+
+      dropArea.addEventListener("drop", e => {
+        fileInput.files = e.dataTransfer.files;
+      });
+
+      dropArea.addEventListener("click", () => fileInput.click());
+    });
 
     // PWA registration
     if ('serviceWorker' in navigator) {

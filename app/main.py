@@ -295,3 +295,4 @@ async def generate_headshot(
 
 app.mount("/output", StaticFiles(directory="output"), name="output")
 app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="app/templates")
