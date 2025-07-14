@@ -22,6 +22,11 @@ os.makedirs("output", exist_ok=True)
 async def form_page(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+
+@app.get("/privacy-policy", response_class=HTMLResponse)
+async def privacy_policy(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
+
 @app.post("/remove")
 async def remove_bg(request: Request, file: UploadFile = File(...)):
     input_bytes = await file.read()
